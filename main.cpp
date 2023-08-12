@@ -1,236 +1,229 @@
-#define _STDCALL_SUPPORTED
+// Definir a macro _STDCALL_SUPPORTED
 
-#include <GL/glut.h>
+#include <GL/glut.h> // Incluir a biblioteca GLUT
+#include <cstdio>
 
-// qual foi a projecao
-// camera
-// perguntas derivadas de sistemas de referencia
-// o tronco do humanio (como foi implementado)
-// grau de libertade
-// qual estrutura
-// solicitar uma acao
-// como que faz para consultar o codigo
-
-
+// Variáveis para controlar as articulações do robô
 static int left_shoulder = 0, left_elbow = 0;
 static int right_shoulder = 0, right_elbow = 0;
-static int turn = 0;
+static int turn = 0; // Variável para controlar a rotação do robô
 
 void init(){
-    glClearColor(0.0,0.0,0.0,0.0);
-    glShadeModel(GL_FLAT);
+    glClearColor(0.0,0.0,0.0,0.0); // Definir a cor de fundo para preto
+    glShadeModel(GL_FLAT); // Definir o modo de shading para GL_FLAT
 }
 
 void display(){
-    glClear(GL_COLOR_BUFFER_BIT);
-    glClearColor(0.0,0.0,0.0,0.0);
-    glColor3f(1.0,0.0,0.0);
+    glClear(GL_COLOR_BUFFER_BIT); // Limpar o buffer de cores
+    glClearColor(0.0,0.0,0.0,0.0); // Definir a cor de fundo novamente para preto
+    glColor3f(1.0,0.0,0.0); // Definir a cor do desenho para vermelho
+
+    // Desenhar a parte superior esquerda do robô (braço esquerdo)
     glPushMatrix();
-        glRotatef ((GLfloat) turn, 0.0, 1.0, 0.0);
-        //左前臂shoulder
-        glTranslatef(0.5,1.7,0.0);
-        glRotatef((GLfloat) left_shoulder, 0.0,0.0,1.0);
-        glTranslatef(0.5,0.0,0.0);
+        glRotatef ((GLfloat) turn, 0.0, 1.0, 0.0); // Rotação do robô em torno do eixo y
+        glTranslatef(0.5,1.7,0.0); // Translação para a posição do ombro esquerdo
+        glRotatef((GLfloat) left_shoulder, 0.0,0.0,1.0); // Rotação do ombro esquerdo em torno do eixo z
+        glTranslatef(0.5,0.0,0.0); // Translação para a posição do cotovelo esquerdo
         glPushMatrix();
-            glScalef(1.3,0.4,1.0);
-            glutSolidCube(0.5);
+            glScalef(1.3,0.4,1.0); // Ajustar o tamanho do cubo (parte superior do braço esquerdo)
+            glutSolidCube(0.5); // Desenhar o cubo (parte superior do braço esquerdo)
         glPopMatrix();
 
-        //左前臂elbow
-        glTranslatef(0.3,0.0,0.0);
-        glRotatef((GLfloat) left_elbow, 0.0,0.0,1.0);
-        glTranslatef(0.3,0.0,0.0);
+        // Desenhar a parte inferior esquerda do robô (antebraço esquerdo)
+        glTranslatef(0.3,0.0,0.0); // Translação para a posição do cotovelo esquerdo
+        glRotatef((GLfloat) left_elbow, 0.0,0.0,1.0); // Rotação do cotovelo esquerdo em torno do eixo z
+        glTranslatef(0.3,0.0,0.0); // Translação para a posição do punho esquerdo
         glPushMatrix();
-            glScalef(1.0,0.4,1.0);
-            glutSolidCube(0.5);
+            glScalef(1.0,0.4,1.0); // Ajustar o tamanho do cubo (antebraço esquerdo)
+            glutSolidCube(0.5); // Desenhar o cubo (antebraço esquerdo)
         glPopMatrix();
     glPopMatrix();
 
+    // Desenhar a parte superior direita do robô (braço direito)
     glPushMatrix();
-        glRotatef ((GLfloat) turn, 0.0, 1.0, 0.0);
-        //右前臂shoulder
-        glTranslatef(-0.5,1.7,0.0);
-        glRotatef((GLfloat) right_shoulder, 0.0,0.0,1.0);
-        glTranslatef(-0.5,0.0,0.0);
+        glRotatef ((GLfloat) turn, 0.0, 1.0, 0.0); // Rotação do robô em torno do eixo y
+        glTranslatef(-0.5,1.7,0.0); // Translação para a posição do ombro direito
+        glRotatef((GLfloat) right_shoulder, 0.0,0.0,1.0); // Rotação do ombro direito em torno do eixo z
+        glTranslatef(-0.5,0.0,0.0); // Translação para a posição do cotovelo direito
         glPushMatrix();
-            glScalef(1.3,0.4,1.0);
-            glutSolidCube(0.5);
+            glScalef(1.3,0.4,1.0); // Ajustar o tamanho do cubo (parte superior do braço direito)
+            glutSolidCube(0.5); // Desenhar o cubo (parte superior do braço direito)
         glPopMatrix();
 
-        //右前臂elbow
-        glTranslatef(-0.3,0.0,0.0);
-        glRotatef((GLfloat) right_elbow, 0.0,0.0,1.0);
-        glTranslatef(-0.3,0.0,0.0);
+        // Desenhar a parte inferior direita do robô (antebraço direito)
+        glTranslatef(-0.3,0.0,0.0); // Translação para a posição do cotovelo direito
+        glRotatef((GLfloat) right_elbow, 0.0,0.0,1.0); // Rotação do cotovelo direito em torno do eixo z
+        glTranslatef(-0.3,0.0,0.0); // Translação para a posição do punho direito
         glPushMatrix();
-            glScalef(1.0,0.4,1.0);
-            glutSolidCube(0.5);
+            glScalef(1.0,0.4,1.0); // Ajustar o tamanho do cubo (antebraço direito)
+            glutSolidCube(0.5); // Desenhar o cubo (antebraço direito)
         glPopMatrix();
     glPopMatrix();
 
+    // Desenhar o tronco do robô
     glPushMatrix();
-        glRotatef ((GLfloat) turn, 0.0, 1.0, 0.0);
-        //躯干
-        glTranslatef (0.0, 1.0,  0.0);
-        glColor3f(0.0,0.5,1.0);
+        glRotatef ((GLfloat) turn, 0.0, 1.0, 0.0); // Rotação do robô em torno do eixo y
+        glTranslatef (0.0, 1.0,  0.0); // Translação para a posição do tronco
+        glColor3f(0.0,0.5,1.0); // Definir a cor para azul claro
         glPushMatrix();
-           glScalef (1.3, 2.0, 0.5);
-           glutSolidCube(1.0);
+           glScalef (1.3, 2.0, 0.5); // Ajustar o tamanho do cubo (tronco)
+           glutSolidCube(1.0); // Desenhar o cubo (tronco)
         glPopMatrix();
 
-        //头
-        glTranslatef (0.0, 1.25, 0.0);
-        glColor3f(1.0,0.6,0.2);
+        // Desenhar a cabeça do robô
+        glTranslatef (0.0, 1.25, 0.0); // Translação para a posição da cabeça
+        glColor3f(1.0,0.6,0.2); // Definir a cor para laranja
         glPushMatrix();
-            glScalef (0.5, 0.5, 0.5);
-            glutSolidSphere(0.8,50,10);
+            glScalef (0.5, 0.5, 0.5); // Ajustar o tamanho da esfera (cabeça)
+            glutSolidSphere(0.8,50,10); // Desenhar a esfera (cabeça)
         glPopMatrix();
     glPopMatrix();
 
-    //右腿
+    // Desenhar a perna direita do robô
     glPushMatrix();
-        glRotatef ((GLfloat) (turn+180), 0.0, 1.0, 0.0);
-        //提起右大腿
-        glTranslatef (0.375,0.0, 0.0);
-        glRotatef ((GLfloat) left_shoulder, 1.0, 0.0, 0.0);
-        glTranslatef (0.0, -0.5, 0.0);
-        glColor3f(0.8,1.0,0.2);
+        glRotatef ((GLfloat) (turn+180), 0.0, 1.0, 0.0); // Rotação da perna direita em torno do eixo y
+        glTranslatef (0.375,0.0, 0.0); // Translação para a posição da coxa direita
+        glRotatef ((GLfloat) left_shoulder, 1.0, 0.0, 0.0); // Rotação da coxa direita em torno do eixo x
+        glTranslatef (0.0, -0.5, 0.0); // Translação para a posição do joelho direito
+        glColor3f(0.8,1.0,0.2); // Definir a cor para verde claro
         glPushMatrix();
-            glScalef (0.5, 1.0, 0.5);
-            glutSolidCube(1.0);
+            glScalef (0.5, 1.0, 0.5); // Ajustar o tamanho do cubo (coxa direita)
+            glutSolidCube(1.0); // Desenhar o cubo (coxa direita)
         glPopMatrix();
 
-        //提起右小腿
-        glTranslatef (0.0, -0.5, 0.0);
-        glRotatef ((GLfloat) left_elbow, 1.0, 0.0, 0.0);
-        glTranslatef (0.0, -0.5, 0.0);
-
-        glColor3f(0.5,0.1,0.8);
+        // Desenhar a parte inferior da perna direita
+        glTranslatef (0.0, -0.5, 0.0); // Translação para a posição da perna direita
+        glRotatef ((GLfloat) left_elbow, 1.0, 0.0, 0.0); // Rotação da perna direita em torno do eixo x
+        glTranslatef (0.0, -0.5, 0.0); // Translação para a posição do tornozelo direito
+        glColor3f(0.5,0.1,0.8); // Definir a cor para roxo
         glPushMatrix();
-            glScalef (0.5, 1.0, 0.5);
-            glutSolidCube(1.0);
+            glScalef (0.5, 1.0, 0.5); // Ajustar o tamanho do cubo (perna direita)
+            glutSolidCube(1.0); // Desenhar o cubo (perna direita)
         glPopMatrix();
 
-        //右脚
-        glTranslatef (0.0, -0.5, -0.1);
-        glColor3f(0.5,0.2,1.0);
+        // Desenhar o pé direito
+        glTranslatef (0.0, -0.5, -0.1); // Translação para a posição do pé direito
+        glColor3f(0.5,0.2,1.0); // Definir a cor para azul escuro
         glPushMatrix();
-            glScalef (0.5, 0.1, 0.7);
-            glutSolidCube(1.0);
+            glScalef (0.5, 0.1, 0.7); // Ajustar o tamanho do cubo (pé direito)
+            glutSolidCube(1.0); // Desenhar o cubo (pé direito)
         glPopMatrix();
-    glPopMatrix ();
-
-    glPushMatrix();
-        glRotatef ((GLfloat) (turn+180), 0.0, 1.0, 0.0);
-
-        //左大腿
-        glTranslatef (-0.375, 0.0, 0.0);
-        glRotatef ((GLfloat) right_shoulder, 1.0, 0.0, 0.0);
-        glTranslatef (0.0, -0.5, 0.0);
-
-        glColor3f(0.8,1.0,0.2);
-        glPushMatrix();
-            glScalef (0.5, 1.0, 0.5);
-            glutSolidCube(1.0);
-        glPopMatrix();
-
-        //左小腿
-        glTranslatef (0.0, -0.5, 0.0);
-        glRotatef ((GLfloat) right_elbow, 1.0, 0.0, 0.0);
-        glTranslatef (0.0, -0.5, 0.0);
-        glColor3f(0.5,0.1,0.8);
-        glPushMatrix();
-            glScalef (0.5, 1.0, 0.5);
-            glutSolidCube(1.0);
-        glPopMatrix();
-
-        //左脚
-        glTranslatef (0.0, -0.5, -0.1);
-        glColor3f(0.5,0.2,1.0);
-        glPushMatrix();
-            glScalef (0.5, 0.1, 0.7);
-            glutSolidCube(1.0);
-        glPopMatrix();
-
     glPopMatrix();
 
-    glutSwapBuffers();
+    // Desenhar a perna esquerda do robô
+    glPushMatrix();
+        glRotatef ((GLfloat) (turn+180), 0.0, 1.0, 0.0); // Rotação da perna esquerda em torno do eixo y
+        glTranslatef (-0.375, 0.0, 0.0); // Translação para a posição da coxa esquerda
+        glRotatef ((GLfloat) right_shoulder, 1.0, 0.0, 0.0); // Rotação da coxa esquerda em torno do eixo x
+        glTranslatef (0.0, -0.5, 0.0); // Translação para a posição do joelho esquerdo
+        glColor3f(0.8,1.0,0.2); // Definir a cor para verde claro
+        glPushMatrix();
+            glScalef (0.5, 1.0, 0.5); // Ajustar o tamanho do cubo (coxa esquerda)
+            glutSolidCube(1.0); // Desenhar o cubo (coxa esquerda)
+        glPopMatrix();
+
+        // Desenhar a parte inferior da perna esquerda
+        glTranslatef (0.0, -0.5, 0.0); // Translação para a posição da perna esquerda
+        glRotatef ((GLfloat) right_elbow, 1.0, 0.0, 0.0); // Rotação da perna esquerda em torno do eixo x
+        glTranslatef (0.0, -0.5, 0.0); // Translação para a posição do tornozelo esquerdo
+        glColor3f(0.5,0.1,0.8); // Definir a cor para roxo
+        glPushMatrix();
+            glScalef (0.5, 1.0, 0.5); // Ajustar o tamanho do cubo (perna esquerda)
+            glutSolidCube(1.0); // Desenhar o cubo (perna esquerda)
+        glPopMatrix();
+
+        // Desenhar o pé esquerdo
+        glTranslatef (0.0, -0.5, -0.1); // Translação para a posição do pé esquerdo
+        glColor3f(0.5,0.2,1.0); // Definir a cor para azul escuro
+        glPushMatrix();
+            glScalef (0.5, 0.1, 0.7); // Ajustar o tamanho do cubo (pé esquerdo)
+            glutSolidCube(1.0); // Desenhar o cubo (pé esquerdo)
+        glPopMatrix();
+    glPopMatrix();
+
+    glutSwapBuffers(); // Trocar os buffers para exibir o desenho
 }
 
 void reshape(int w, int h){
-    glViewport(0,0,(GLsizei) w, (GLsizei) h);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(65.0, (GLfloat) w/(GLfloat) h, 1.0,20.0);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    glTranslatef(0.0,0.0,-5.0);
+    glViewport(0,0,(GLsizei) w, (GLsizei) h); // Definir a viewport para a janela
+    glMatrixMode(GL_PROJECTION); // Mudar para a matriz de projeção
+    glLoadIdentity(); // Carregar a matriz de identidade
+    gluPerspective(65.0, (GLfloat) w/(GLfloat) h, 1.0,20.0); // Definir a projeção perspectiva
+    glMatrixMode(GL_MODELVIEW); // Mudar para a matriz de modelview
+    glLoadIdentity(); // Carregar a matriz de identidade
+    glTranslatef(0.0,0.0,-5.0); // Translação para afastar o objeto da câmera
 }
 
 void keyboard(unsigned char key, int x, int y){
-    /*
-    //限制手脚活动空间
-    if(left_shoulder>180) left_shoulder = 180;
-    else if(left_shoulder<0) left_shoulder = 0;
-
-    if(left_elbow>180) left_elbow = 180;
-    else if(left_elbow<0) left_elbow = 0;
-    */
+    // Capturar as teclas pressionadas para controlar as articulações do robô
     switch (key){
     case ';':
-        left_shoulder = (left_shoulder+5) % 360;
-        glutPostRedisplay();
+        if(left_shoulder != 40)
+            left_shoulder = (left_shoulder+5) % 360; // Incrementar o ângulo do ombro esquerdo
+        glutPostRedisplay(); // Atualizar a janela
         break;
     case 'k':
-        left_shoulder = (left_shoulder-5) % 360;
-        glutPostRedisplay();
+        if(left_shoulder != -40)
+            left_shoulder = (left_shoulder-5) % 360; // Decrementar o ângulo do ombro esquerdo
+        glutPostRedisplay(); // Atualizar a janela
         break;
     case 'o':
-        left_elbow = (left_elbow+5) % 360;
-        glutPostRedisplay();
+        if(left_elbow != 40)
+            left_elbow = (left_elbow+5) % 360; // Incrementar o ângulo do cotovelo esquerdo
+        glutPostRedisplay(); // Atualizar a janela
         break;
     case 'l':
-        left_elbow = (left_elbow-5) % 360;
-        glutPostRedisplay();
+        if(left_elbow != -40)
+            left_elbow = (left_elbow-5) % 360; // Decrementar o ângulo do cotovelo esquerdo
+        glutPostRedisplay(); // Atualizar a janela
         break;
     case 'a':
-        right_shoulder = (right_shoulder+5) % 360;
-        glutPostRedisplay();
+        if(right_shoulder != 40)
+            right_shoulder = (right_shoulder+5) % 360; // Incrementar o ângulo do ombro direito
+        glutPostRedisplay(); // Atualizar a janela
         break;
     case 'd':
-        right_shoulder = (right_shoulder-5) % 360;
-        glutPostRedisplay();
+        if(right_shoulder != -40)
+            right_shoulder = (right_shoulder-5) % 360; // Decrementar o ângulo do ombro direito
+        glutPostRedisplay(); // Atualizar a janela
         break;
     case 'w':
-        right_elbow = (right_elbow+5) % 360;
-        glutPostRedisplay();
+        if(right_elbow != 40)
+            right_elbow = (right_elbow+5) % 360; // Incrementar o ângulo do cotovelo direito
+        glutPostRedisplay(); // Atualizar a janela
         break;
     case 's':
-        right_elbow = (right_elbow-5) % 360;
-        glutPostRedisplay();
+        if(right_elbow != -40)
+            right_elbow = (right_elbow-5) % 360; // Decrementar o ângulo do cotovelo direito
+        glutPostRedisplay(); // Atualizar a janela
         break;
-    case 'f':
-        turn = (turn+5) % 360;
-        glutPostRedisplay();
+    case 'r':
+        turn = (turn+5) % 360; // Incrementar o ângulo de rotação do robô
+        glutPostRedisplay(); // Atualizar a janela
         break;
-    case 'j':
-        turn = (turn-5) % 360;
-        glutPostRedisplay();
+    case 't':
+        turn = (turn-5) % 360; // Decrementar o ângulo de rotação do robô
+        glutPostRedisplay(); // Atualizar a janela
         break;
+    case 27: // ESQ --> fecha
+        exit(1);
+    case 'q': // q --> fecha
+        exit(1);
     default:
         break;
     }
 }
 
 int main(int argc, char** argv){
-    glutInit(&argc, argv);
-    glutInitDisplayMode(GL_DOUBLE | GLUT_RGB);
-    glutInitWindowSize(800,600);
-    glutInitWindowPosition(100,80);
-    glutCreateWindow("robot");
-    init();
-    glutDisplayFunc(display);
-    glutReshapeFunc(reshape);
-    glutKeyboardFunc(keyboard);
-    glutMainLoop();
+    glutInit(&argc, argv); // Inicializar o GLUT
+    glutInitDisplayMode(GL_DOUBLE | GLUT_RGB); // Definir o modo de exibição (duplo buffer e cores RGB)
+    glutInitWindowSize(800,600); // Definir o tamanho da janela
+    glutInitWindowPosition(100,80); // Definir a posição da janela na tela
+    glutCreateWindow("robot"); // Criar a janela com o título "robot"
+     init(); // Inicializar os parâmetros do OpenGL
+    glutDisplayFunc(display); // Registrar a função de exibição
+    glutReshapeFunc(reshape); // Registrar a função de redimensionamento da janela
+    glutKeyboardFunc(keyboard); // Registrar a função de captura de teclas
+    glutMainLoop(); // Iniciar o loop principal do GLUT
     return 0;
 }

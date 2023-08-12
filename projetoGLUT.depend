@@ -1,6 +1,7 @@
 # depslib dependency file v1.0
-1691453751 source:c:\users\nycol\documents\ufgd\computacao grafica\projeto\projetoglut\main.cpp
+1691870282 source:c:\users\nycol\documents\ufgd\computacao grafica\projeto\projetoglut\main.cpp
 	<GL/glut.h>
+	<cstdio>
 
 1632060799 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\gl\glut.h
 	"freeglut_std.h"
